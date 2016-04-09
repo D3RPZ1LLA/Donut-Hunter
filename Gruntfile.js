@@ -68,7 +68,7 @@ module.exports = function (grunt) {
           'import': ['nib']
         },
         files: {
-          'dist/main.css': ['src/styl/main.styl']
+          'dist/phone/style.css': ['src/phone/style.styl']
         }
       }
     }

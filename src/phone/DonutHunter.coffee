@@ -3,7 +3,7 @@ define [ 'backbone' ], () ->
     API_KEY: 'AIzaSyDv_insHb8qwr4qDAaTZRikfoAi9Kbm_Ck'
 
     initialize: ->
-      # @findDonuts()
+      @findDonuts()
       dat = @
       if navigator.geolocation && false
         @renderButton()

@@ -1,18 +1,21 @@
 var port = process.env.PORT || 3000
   , app = require('express')()
-  // , favicon = require('serve-favicon')
-  // , device = require('express-device')
+  , favicon = require('serve-favicon')
+  , device = require('express-device')
   , server = require('http').Server(app);
+
+app.use( device.capture() );
 
 server.listen(port);
 console.log('\nϟϟϟ Serving on port ' + port + ' ϟϟϟ\n');
 
 app.get('/', function (req, res) {
-  console.log(req.originalUrl)
-  res.sendfile('dist/index.html');
+  console.log(req.device.type)
+  res.sendfile('dist/' + req.device.type + '/index.html');
 });
 
 app.get('/*' , function( req, res, next ) {
+    console.log(req.device.type)
     console.log(req.originalUrl)
     var file = req.params[0];
     res.sendfile( __dirname + '/' + file );
