@@ -11,7 +11,7 @@ console.log('\nϟϟϟ Serving on port ' + port + ' ϟϟϟ\n');
 
 app.get('/', function (req, res) {
   console.log(req.device.type)
-  res.sendfile('dist/' + req.device.type + '/index.html');
+  res.sendfile('dist/' + 'phone' + '/index.html');
 });
 
 app.get('/*' , function( req, res, next ) {

@@ -16,6 +16,5 @@ require.config
       exports: '$'
 
 define ['router', 'backbone'], ( Router ) ->
-  return
   new Router( )
   Backbone.history.start()

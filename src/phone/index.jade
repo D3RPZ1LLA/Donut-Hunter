@@ -3,10 +3,14 @@ html
   head
     title Donut Hunter v0.4
     link(rel='stylesheet', href='dist/phone/style.css')
-    //- script( type="text/javascript", src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDv_insHb8qwr4qDAaTZRikfoAi9Kbm_Ck&libraries=places" )
+    script( type="text/javascript", src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDv_insHb8qwr4qDAaTZRikfoAi9Kbm_Ck&libraries=places" )
     script(data-main='dist/phone/main', src='node_modules/requirejs/require.js')
+    meta( name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0")
   body
     header
       img( src="/images/home_link.png")
-    .load-screen
+    //- .load-screen
         img.avatar( src="/images/hunter_avatar.png" )
+    #map-canvas
+
+    .location-list
