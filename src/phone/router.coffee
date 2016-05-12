@@ -19,6 +19,7 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
         lng: position.coords.longitude
       }
       @createMap center
+      @createCurrentLocationMarker center
       @searchDonutsByRadius center, radius, @buildMapMarkersAndList
 
     buildMapMarkersAndList: ( results, status ) ->
@@ -57,15 +58,21 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
         center: center,
         zoom: 13
       }
+      @infowindow = new google.maps.InfoWindow( )
 
+    createCurrentLocationMarker: ( center ) ->
       marker = new google.maps.Marker {
         map: @map,
         position: center,
         icon: '/images/donut_hunter_bust.png'
       }
 
+      dat = @
+      google.maps.event.addListener marker, 'click', ->
+        dat.infowindow.setContent "You are here !"
+        dat.infowindow.open dat.map, @
+
     searchDonutsByRadius: ( center, radius, callback ) ->
-      @infowindow = new google.maps.InfoWindow( )
       service = new google.maps.places.PlacesService( @map )
 
       service.nearbySearch {
