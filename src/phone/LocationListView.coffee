@@ -1,8 +1,11 @@
-define [ 'LocationView', 'text!location_view.html', 'backbone' ], ( LocationView, template ) ->
+define [ 'LocationView', 'backbone' ], ( LocationView ) ->
   Backbone.View.extend
 
     initialize: ->
-      console.log @el
+      @locationList = [ ]
 
     addLocation: ( place ) ->
-      console.log place
+      model = new Backbone.Model place
+      locationView = new LocationView { model: model }
+      @locationList.push locationView
+      @$el.append locationView.$el

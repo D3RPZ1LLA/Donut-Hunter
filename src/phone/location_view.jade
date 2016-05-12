@@ -1,13 +1,11 @@
 //- img.preview( src!="<%= preview %>" )
-img.preview( src!="http://s3-media4.fl.yelpcdn.com/bphoto/fz5xkCeIZSwwOunhqcoNqw/ms.jpg" )
+img.preview( src!="<%= photo %>" )
 .text-information
-  .title Koffee Kat
+  .title <%= attributes.name %>
   .reviews
     .stars
-    | 257 Reviews
-  .address
-    | Pacific Beach
-    | 4750 Cass St, San Diego
+    | <%= attributes.user_ratings_total %> Reviews
+  .address <%= attributes.vicinity %>
 
 .distance-and-price
   .distance 1.1 mi

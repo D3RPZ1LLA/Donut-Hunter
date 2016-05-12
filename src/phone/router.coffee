@@ -1,10 +1,12 @@
 define ['LocationListView', 'backbone'], ( LocationList ) ->
   Backbone.Router.extend
+    Google_API_KEY: 'AIzaSyB0cV8zMYlRl3W9mNrsdsjqR5B6uMEdpbg'
+
     error: (err) ->
       console.warn('ERROR(' + err.code + '): ' + err.message)
 
     initialize:  ->
-      @locationList = new LocationList { el: $('body').find( '.location-list' ) }
+      @locationList = new LocationList { el: $( '.location-list' ) }
       if !!navigator.geolocation
         @getCurrentLocation @createMapAndStartSearch, @error
       else
@@ -20,10 +22,19 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
       @searchDonutsByRadius center, radius, @buildMapMarkersAndList
 
     buildMapMarkersAndList: ( results, status ) ->
+      dat = @
+      # console.log results[0].photos[0].getUrl({ maxWidth: 200})
+
       if status == google.maps.places.PlacesServiceStatus.OK
+        service = new google.maps.places.PlacesService @map
+
         for i in [ 0...results.length ]
-          @createMarker results[ i ]
-          @createListItem results[ i ]
+          service.getDetails {
+            placeId: results[ i ].place_id
+          }, ( place, status ) ->
+              if status == google.maps.places.PlacesServiceStatus.OK
+                dat.createMarker place
+                dat.createListItem place
 
     routes:
       'list': 'list'
@@ -44,13 +55,21 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
       dat = @
       @map = new google.maps.Map document.getElementById('map-canvas'), {
         center: center,
-        zoom: 12
+        zoom: 13
+      }
+
+      marker = new google.maps.Marker {
+        map: @map,
+        position: center,
+        icon: '/images/donut_hunter_bust.png'
       }
 
     searchDonutsByRadius: ( center, radius, callback ) ->
       @infowindow = new google.maps.InfoWindow( )
       service = new google.maps.places.PlacesService( @map )
+
       service.nearbySearch {
+        key: @Google_API_KEY,
         location: center,
         radius: radius,
         keyword: [ 'donuts' ]
@@ -61,7 +80,8 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
       placeLoc = place.geometry.location
       marker = new google.maps.Marker {
         map: @map,
-        position: place.geometry.location
+        position: place.geometry.location,
+        icon: '/images/donut_icon.png'
       }
 
       google.maps.event.addListener marker, 'click', ->
