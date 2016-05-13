@@ -14,13 +14,13 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
 
     createMapAndStartSearch: ( position ) ->
       radius = 5000
-      center = {
+      @center = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       }
-      @createMap center
-      @createCurrentLocationMarker center
-      @searchDonutsByRadius center, radius, @buildMapMarkersAndList
+      @createMap( )
+      @searchDonutsByRadius radius, @buildMapMarkersAndList
+      @createCurrentLocationMarker( )
 
     buildMapMarkersAndList: ( results, status ) ->
       dat = @
@@ -52,18 +52,18 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
       }
       navigator.geolocation.getCurrentPosition( callback.bind(@), error.bind(@), options)
 
-    createMap: ( center ) ->
+    createMap: ->
       dat = @
       @map = new google.maps.Map document.getElementById('map-canvas'), {
-        center: center,
-        zoom: 13
+        center: @center,
+        zoom: 14
       }
       @infowindow = new google.maps.InfoWindow( )
 
-    createCurrentLocationMarker: ( center ) ->
+    createCurrentLocationMarker: ->
       marker = new google.maps.Marker {
         map: @map,
-        position: center,
+        position: @center,
         icon: '/images/donut_hunter_bust.png'
       }
 
@@ -72,12 +72,12 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
         dat.infowindow.setContent "You are here !"
         dat.infowindow.open dat.map, @
 
-    searchDonutsByRadius: ( center, radius, callback ) ->
+    searchDonutsByRadius: ( radius, callback ) ->
       service = new google.maps.places.PlacesService( @map )
 
       service.nearbySearch {
         key: @Google_API_KEY,
-        location: center,
+        location: @center,
         radius: radius,
         keyword: [ 'donuts' ]
       }, callback.bind( @ )

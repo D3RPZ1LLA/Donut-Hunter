@@ -8,4 +8,4 @@ define [ 'LocationView', 'backbone' ], ( LocationView ) ->
       model = new Backbone.Model place
       locationView = new LocationView { model: model }
       @locationList.push locationView
-      @$el.append locationView.$el
+      @$el.append locationView.render( ).$el
