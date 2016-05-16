@@ -1,22 +1,35 @@
+$pink = #ea7da2
+$green = #71a87b
+
+$Rosario = 'Josefin Sans', sans-serif
+
 global-reset()
 
 body
-  background: #87af7d
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
+  background: $green
+  font-family: $Rosario
 
 header
   background: black
   padding:10px
-  border-bottom: solid 5px #87af7d
+  border-bottom: solid 5px $green
 
 .row
   clearfix()
 
-  img
-    display: block
-    height: 48px
-    width: auto
-    float: left
+.logo
+  height: 48px
+  width: auto
+  float: left
+  font-family: $Rosario
+  color: white
+  text-align: center
+  letter-spacing: 1.7px
+  font-size: 17px
+  line-height: 19px
+
+  b
+    color: $pink
 
 .location-input-containter
   width: 200px
@@ -25,7 +38,7 @@ header
 .location-input
   margin: 0 0 0 12px
   border-radius: 15px
-  border: solid 2px #f992c5
+  border: solid 2px $pink
   padding-right: 15px
   width: 165px
   position: relative
@@ -46,7 +59,7 @@ header
     padding: 5px 0px 5px 30px
     border-radius: 15px
     width: 145px
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
+    font-family: $Rosario
     font-size: 16px
 
 .menu
@@ -55,17 +68,18 @@ header
   div
     width: 33px
     height: 3px
-    background: #87af7d
+    background: $green
     margin-bottom: 7px
     border-radius: 5px
 
 .tagline
-  color: #87af7d
+  color: $green
   padding-top: 2px
   height: 30px
   line-height: 30px
   font-size: 20px
-  font-family: 'Dancing Script', cursive
+  font-family: 'Great Vibes', cursive
+  letter-spacing: 2px
   float: left
 
 .mobile-bar
@@ -77,9 +91,10 @@ header
 .mobile-controls
   margin: 0 auto
   width: 110px
-  border: solid 2px #f992c5
+  border: solid 2px $pink
   height: 30px
   position: relative
+  font-family: $Rosario
 
   .map
     position: absolute
@@ -96,7 +111,7 @@ header
   .hr
     width: 2px
     height: 31px
-    background: #f992c5
+    background: $pink
     margin: -1px auto 0 auto
 
   .list
@@ -112,7 +127,7 @@ header
     top: 0
 
   .selected
-    background: #f992c5
+    background: $pink
     color: black
 
 #map-canvas
