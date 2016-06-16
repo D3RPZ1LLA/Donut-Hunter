@@ -1,4 +1,4 @@
-define ['LocationListView', 'backbone'], ( LocationList ) ->
+define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], ( Header, LocationList, InfoWindowTemplate ) ->
   Backbone.Router.extend
     Google_API_KEY: 'AIzaSyB0cV8zMYlRl3W9mNrsdsjqR5B6uMEdpbg'
 
@@ -6,6 +6,8 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
       console.warn('ERROR(' + err.code + '): ' + err.message)
 
     initialize:  ->
+      @setMapDimensions( )
+      @header = new Header { el: $( '.header-view' ) }
       @locationList = new LocationList { el: $( '.location-list' ) }
       if !!navigator.geolocation
         @getCurrentLocation @createMapAndStartSearch, @error
@@ -24,7 +26,6 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
 
     buildMapMarkersAndList: ( results, status ) ->
       dat = @
-      # console.log results[0].photos[0].getUrl({ maxWidth: 200})
 
       if status == google.maps.places.PlacesServiceStatus.OK
         service = new google.maps.places.PlacesService @map
@@ -36,6 +37,11 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
               if status == google.maps.places.PlacesServiceStatus.OK
                 dat.createMarker place
                 dat.createListItem place
+
+    setMapDimensions: ->
+      headerHeight = $( 'header' ).outerHeight( )
+      windowHeight  = window.innerHeight
+      $( '#map-canvas' ).css( 'height', windowHeight - headerHeight )
 
     routes:
       'list': 'list'
@@ -92,7 +98,7 @@ define ['LocationListView', 'backbone'], ( LocationList ) ->
       }
 
       google.maps.event.addListener marker, 'click', ->
-        dat.infowindow.setContent place.name
+        dat.infowindow.setContent _.template( InfoWindowTemplate )( place: place )
         dat.infowindow.open dat.map, @
 
     createListItem: ( place ) ->
