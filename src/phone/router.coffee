@@ -7,22 +7,39 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
 
     initialize:  ->
       @setMapDimensions( )
+      @geocoder = new google.maps.Geocoder( )
+
       @header = new Header { el: $( '.header-view' ) }
+      @header.on 'search', @geocodeFromAddress, @
       @locationList = new LocationList { el: $( '.location-list' ) }
+
       if !!navigator.geolocation
-        @getCurrentLocation @createMapAndStartSearch, @error
+        @getCurrentLocation @initMap, @error
       else
         console.warn 'geolocation IS NOT available'
 
-    createMapAndStartSearch: ( position ) ->
-      radius = 5000
-      @center = {
+    initMap: ( position ) ->
+      @createMapAndStartSearch {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       }
+
+    createMapAndStartSearch: ( center, radius ) ->
+      @center = center
+      radius ||= 5000
       @createMap( )
-      @searchDonutsByRadius radius, @buildMapMarkersAndList
       @createCurrentLocationMarker( )
+      @searchDonutsByRadius radius, @buildMapMarkersAndList
+
+    geocodeFromAddress: ( address ) ->
+      dat = @
+      @geocoder.geocode { address: address }, ( results, status ) ->
+        if status == google.maps.GeocoderStatus.OK
+          center = {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
+          }
+          dat.createMapAndStartSearch( center )
 
     buildMapMarkersAndList: ( results, status ) ->
       dat = @
@@ -45,7 +62,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
 
     routes:
       'list': 'list'
-      'map': 'map'
+      '*default': 'map'
 
     list: ->
 
@@ -62,7 +79,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
       dat = @
       @map = new google.maps.Map document.getElementById('map-canvas'), {
         center: @center,
-        zoom: 14
+        zoom: 13
       }
       @infowindow = new google.maps.InfoWindow( )
 

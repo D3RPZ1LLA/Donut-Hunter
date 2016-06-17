@@ -1,10 +1,11 @@
 define [ 'backbone' ], ->
   Backbone.View.extend
+    events:
+      'submit form': 'searchDonutsByLocation'
 
-    initialize: ->
-      console.log $el
-
-    searchDonutsByLocation: ->
+    searchDonutsByLocation: ( e ) ->
+      e.preventDefault( )
+      @trigger 'search', @$el.find( 'input' ).val()
 
     toggleMenu: ->
 
