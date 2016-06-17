@@ -3,12 +3,17 @@ define [ 'text!location_view.html', 'backbone' ], ( template ) ->
     className: 'donut-location'
 
     initialize: ->
-      if !!@model.get( 'photos')
-        @photo = @model.get( 'photos')[0].getUrl( maxWidth: 500)
+      rating = Math.round( @model.get( 'rating' ) ) || 0
+      @model.set 'rating', rating
+
+      if !!@model.get( 'photos' )
+        @photo = @model.get( 'photos')[0].getUrl( maxWidth: 140)
       else
-        @photo = '/images/donut_medium.png'
-        # http://orig03.deviantart.net/af88/f/2015/046/9/9/donut_cartoon_by_thegoldenbox-d8i3l4q.png
+        @photo = 'https://lh5.googleusercontent.com/-tOmyPlHHXF0/VsnunKXkrpI/AAAAAAAACaQ/MtodKeESfVgCbrKuDr_KXUKljDQ6Z-Mgw/w500-k/'
 
     render: ->
       @$el.html _.template( template )( attributes: @model.attributes, photo: @photo )
+      rating = @model.get( 'rating' )
+      window.derp = @$el.find( '.' + rating + '-stars' )
+      @$el.find( '.' + rating + '-stars' ).addClass  'active'
       @

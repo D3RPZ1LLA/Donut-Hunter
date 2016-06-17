@@ -2,10 +2,20 @@ define [ 'LocationView', 'backbone' ], ( LocationView ) ->
   Backbone.View.extend
 
     initialize: ->
-      @locationList = [ ]
+      dat = @
+      @locationList = new Backbone.Collection
+      @locationList.on 'add', ( location ) ->
+        dat.render( location )
 
-    addLocation: ( place ) ->
-      model = new Backbone.Model place
-      locationView = new LocationView { model: model }
-      @locationList.push locationView
+      window.locationList= @locationList
+
+    addLocation: ( location ) ->
+      @locationList.add new Backbone.Model location
+
+    reset: ->
+      @locationList.reset [ ]
+      @$el.html ''
+
+    render: ( location ) ->
+      locationView = new LocationView { model: location }
       @$el.append locationView.render( ).$el

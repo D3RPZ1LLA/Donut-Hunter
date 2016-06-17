@@ -1,6 +1,7 @@
 $pink = #ea7da2
 $green = #71a87b
 $white = #ffffff
+$offWhite = #fffef2
 
 $Josefin = 'Josefin Sans', sans-serif
 $GreatVibes = 'Great Vibes', cursive
@@ -21,7 +22,7 @@ placeholder(n)
     color: n
 
 body
-  background: $green
+  background: black
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-seriff
 
 @import "header"
@@ -47,7 +48,6 @@ body
     display: flex
     width: 100%
     background: black
-    color: white
 
     .preview
       width: 65px
@@ -59,17 +59,40 @@ body
     .text-information
       width: 100%
       .title
-        font-weight: bold
+        font-family: $GreatVibes
+        font-size: 20px
+        color: $white
+        padding-top: 5px
       .reviews
+        position: relative
+        height: 35px
+        padding-left: 100px
+        overflow: hidden
         .stars
-          margin: 0
+          fill: $pink
+          width: 100px
+          height: 90px
+          position: absolute
+          top: -30px
+          left: -10px
+        .review-text
+          font-size: 13px
+          line-height: 33px
+          color: $pink
+          font-family: $Josefin
       .address
+        font-size: 13px
         color: $green
-        font-size: 16px
+        font-family: $Josefin
 
-      .distance-and-price
-        width: 35px
-        .distance
-          margin: 0
-        .price
-          margin: 0
+    .distance-and-price
+      color: $green
+      font-size: 13px
+      font-family: $Josefin
+      padding-top: 5px
+      text-align: right
+      margin-right: 11px
+      .distance
+        width: 50px
+      .price
+        margin: 0

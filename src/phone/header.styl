@@ -2,6 +2,8 @@ header
   background: black
   padding:10px
   border-bottom: solid 5px $green
+  max-height: 82px
+  overflow: none
 
 .row
   clearfix()
@@ -42,15 +44,16 @@ header
     background-color: black
     border: 0
     outline: 0
-    color: white
+    color: $white
     font-family: $InputText
     font-size: 16px
     line-height: 20px
-    placeholder( white )
+    placeholder( $white )
 
 .menu
   width: 50px
   padding: 4px
+
   div
     width: 33px
     height: 3px
@@ -66,13 +69,12 @@ header
   font-size: 22px
   font-family: $GreatVibes
   letter-spacing: 2px
-  float: left
+  width: 100%
 
 .mobile-bar
   background: black
   color: $white
   font-size: 16px
-  float: right
 
 .mobile-controls
   margin: 0 auto

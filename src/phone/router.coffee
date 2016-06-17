@@ -46,6 +46,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
 
       if status == google.maps.places.PlacesServiceStatus.OK
         service = new google.maps.places.PlacesService @map
+        @locationList.reset( )
 
         for i in [ 0...results.length ]
           service.getDetails {
