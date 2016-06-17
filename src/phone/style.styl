@@ -1,11 +1,12 @@
 $pink = #ea7da2
 $green = #71a87b
 $white = #ffffff
-$offWhite = #fffef2
+$brown = #1a0a05
 
 $Josefin = 'Josefin Sans', sans-serif
 $GreatVibes = 'Great Vibes', cursive
 $InputText = 'Lato', sans-serif
+$Risque = 'Risque', cursive
 
 global-reset()
 
@@ -47,7 +48,7 @@ body
     display: -webkit-flex
     display: flex
     width: 100%
-    background: black
+    background: $brown
 
     .preview
       width: 65px
@@ -59,10 +60,10 @@ body
     .text-information
       width: 100%
       .title
-        font-family: $GreatVibes
-        font-size: 20px
+        font-family: $Risque
+        font-size: 18px
         color: $white
-        padding-top: 5px
+        letter-spacing: 1.3px
       .reviews
         position: relative
         height: 35px
@@ -90,7 +91,6 @@ body
       color: $green
       font-size: 13px
       font-family: $Josefin
-      padding-top: 5px
       text-align: right
       margin-right: 11px
       .distance
