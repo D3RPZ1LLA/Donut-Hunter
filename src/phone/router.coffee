@@ -65,8 +65,13 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
       '*default': 'map'
 
     list: ->
+      $('#map-canvas').removeClass 'active'
+      $('.location-list').addClass 'active'
 
     map: ->
+      $('.location-list').removeClass 'active'
+      $('#map-canvas').addClass 'active'
+      @list()
 
     getCurrentLocation: ( callback, error ) ->
       options = {
