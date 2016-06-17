@@ -2,12 +2,7 @@ img.preview( src!="<%= photo %>" )
 .text-information
   .title <%= attributes.name %>
   .reviews
-    include 0-star
-    include 1-star
-    include 2-star
-    include 3-star
-    include 4-star
-    include 5-star
+    include stars
     .review-text <%= attributes.reviews.length %> Reviews
   .address <%= attributes.vicinity %>
 

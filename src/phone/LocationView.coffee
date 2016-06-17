@@ -3,8 +3,7 @@ define [ 'text!location_view.html', 'backbone' ], ( template ) ->
     className: 'donut-location'
 
     initialize: ->
-      rating = Math.round( @model.get( 'rating' ) ) || 0
-      @model.set 'rating', rating
+      @rating = Math.round( @model.get( 'rating' ) ) || 0
 
       if !!@model.get( 'photos' )
         @photo = @model.get( 'photos')[0].getUrl( maxWidth: 140)
@@ -12,8 +11,5 @@ define [ 'text!location_view.html', 'backbone' ], ( template ) ->
         @photo = 'https://lh5.googleusercontent.com/-tOmyPlHHXF0/VsnunKXkrpI/AAAAAAAACaQ/MtodKeESfVgCbrKuDr_KXUKljDQ6Z-Mgw/w500-k/'
 
     render: ->
-      @$el.html _.template( template )( attributes: @model.attributes, photo: @photo )
-      rating = @model.get( 'rating' )
-      window.derp = @$el.find( '.' + rating + '-stars' )
-      @$el.find( '.' + rating + '-stars' ).addClass  'active'
+      @$el.html _.template( template )( attributes: @model.attributes, photo: @photo, rating: @rating )
       @

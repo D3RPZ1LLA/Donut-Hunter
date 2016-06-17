@@ -7,8 +7,6 @@ define [ 'LocationView', 'backbone' ], ( LocationView ) ->
       @locationList.on 'add', ( location ) ->
         dat.render( location )
 
-      window.locationList= @locationList
-
     addLocation: ( location ) ->
       @locationList.add new Backbone.Model location
 
