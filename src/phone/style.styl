@@ -1,7 +1,8 @@
 $pink = #ea7da2
 $green = #71a87b
-$white = #ffffff
+$white = #f5f5f5
 $brown = #1a0a05
+$black = #0d0d0d
 
 $Josefin = 'Josefin Sans', sans-serif
 $GreatVibes = 'Great Vibes', cursive
@@ -23,7 +24,7 @@ placeholder(n)
     color: n
 
 body
-  background: black
+  background: $black
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-seriff
 
 @import "header"
@@ -49,6 +50,9 @@ body
     display: flex
     width: 100%
     background: $brown
+
+    &:last-child
+      border: 0
 
     .preview
       width: 65px
