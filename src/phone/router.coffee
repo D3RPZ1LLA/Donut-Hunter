@@ -3,15 +3,19 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
     Google_API_KEY: 'AIzaSyB0cV8zMYlRl3W9mNrsdsjqR5B6uMEdpbg'
 
     error: (err) ->
-      console.warn('ERROR(' + err.code + '): ' + err.message)
+      console.warn( err )
 
     initialize:  ->
       @setMapDimensions( )
       @geocoder = new google.maps.Geocoder( )
 
       @header = new Header { el: $( '.header-view' ) }
+      @header.on 'error', @error
       @header.on 'search', @geocodeFromAddress, @
+      @header.on 'setResultsDisplay', @setDisplay, @
+
       @locationList = new LocationList { el: $( '.location-list' ) }
+      @locationList.on 'error', @error
 
       if !!navigator.geolocation
         @getCurrentLocation @initMap, @error
@@ -62,17 +66,27 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
       $( '#map-canvas' ).css( 'height', windowHeight - headerHeight )
 
     routes:
-      'list': 'list'
-      '*default': 'map'
+      'list': 'showList'
+      '*default': 'showMap'
 
-    list: ->
-      $('#map-canvas').removeClass 'active'
-      $('.location-list').addClass 'active'
+    setDisplay: ( displayType ) ->
+      if displayType == 'map'
+        @showMap( )
+      else if displayType == 'list'
+        @showList( )
+      else
+        @error 'Router.setResultsDisplay was called with invalid display type: ' + displayType
 
-    map: ->
+    showMap: ->
       $('.location-list').removeClass 'active'
       $('#map-canvas').addClass 'active'
-      @list()
+      @header.setDisplay 'map'
+
+    showList: ->
+      $('#map-canvas').removeClass 'active'
+      $('.location-list').addClass 'active'
+      @header.setDisplay 'list'
+
 
     getCurrentLocation: ( callback, error ) ->
       options = {

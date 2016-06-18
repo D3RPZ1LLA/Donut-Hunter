@@ -24,10 +24,13 @@ placeholder(n)
     color: n
 
 body
+  margin-top: 105px
+  overflow: visible
   background: $black
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-seriff
 
 @import "header"
+@import "location_list"
 
 #map-canvas
   display: none
@@ -37,67 +40,3 @@ body
 
   &.active
     display: block
-
-.location-list
-  display: none
-  &.active
-    display: block
-
-  .donut-location
-    padding: 11px 0
-    border-bottom: solid 2px $green
-    display: -webkit-flex
-    display: flex
-    width: 100%
-    background: $brown
-
-    &:last-child
-      border: 0
-
-    .preview
-      width: 65px
-      min-width: 65px
-      height: 65px
-      border-radius: 8px
-      margin: 0 11px
-
-    .text-information
-      width: 100%
-      .title
-        font-family: $Risque
-        font-size: 18px
-        color: $white
-        letter-spacing: 1.3px
-      .reviews
-        position: relative
-        height: 35px
-        padding-left: 88px
-        overflow: hidden
-        margin-bottom: 1px
-        .stars
-          fill: $pink
-          width: 100px
-          height: 90px
-          position: absolute
-          top: -29px
-          left: -10px
-        .review-text
-          font-size: 13px
-          line-height: 33px
-          color: $pink
-          font-family: $Josefin
-      .address
-        font-size: 13px
-        color: $green
-        font-family: $Josefin
-
-    .distance-and-price
-      color: $green
-      font-size: 13px
-      font-family: $Josefin
-      text-align: right
-      margin-right: 11px
-      .distance
-        width: 50px
-      .price
-        margin: 0
