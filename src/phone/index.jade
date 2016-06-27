@@ -2,16 +2,20 @@ doctype html
 html
   head
     title Donut Hunter v0.4
-    link(rel='stylesheet', href='dist/phone/style.css')
-    script( type="text/javascript", src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDv_insHb8qwr4qDAaTZRikfoAi9Kbm_Ck&libraries=places" )
-    script(data-main='dist/phone/main', src='node_modules/requirejs/require.js')
     meta( name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0")
-    link( href='https://fonts.googleapis.com/css?family=Great+Vibes', rel='stylesheet', type='text/css')
-    link( href='https://fonts.googleapis.com/css?family=Rosario:400,400italic|Josefin+Sans:400,600|Lato|Risque', rel='stylesheet', rel='stylesheet', type='text/css')
+
+    link(rel='stylesheet', href='dist/phone/style.css')
+    link( href='https://fonts.googleapis.com/css?family=Rosario:400,400italic|Josefin+Sans:400,600|Lato|Risque|Great+Vibes', rel='stylesheet', rel='stylesheet', type='text/css')
   body
-    include menu
+    //- include menu
     include header
 
     #map-canvas.active
 
     .location-list
+
+
+    script( type="text/javascript", src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDv_insHb8qwr4qDAaTZRikfoAi9Kbm_Ck&libraries=places" )
+    script( type="text/javascript", src="http://crypto-js.googlecode.com/files/2.0.0-crypto-sha1.js" )
+    script( type="text/javascript", src="http://crypto-js.googlecode.com/files/2.0.0-hmac-min.js" )
+    script(data-main='dist/phone/main', src='node_modules/requirejs/require.js')
