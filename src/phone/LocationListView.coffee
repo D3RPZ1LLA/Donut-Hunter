@@ -3,15 +3,12 @@ define [ 'LocationView', 'backbone' ], ( LocationView ) ->
 
     initialize: ->
       dat = @
-      @locationList = new Backbone.Collection
-      @locationList.on 'add', ( location ) ->
+      @collection.on 'add', ( location ) ->
         dat.render( location )
-
-    addLocation: ( location ) ->
-      @locationList.add new Backbone.Model location
+      @collection.on 'reset', ->
+        dat.reset( )
 
     reset: ->
-      @locationList.reset [ ]
       @$el.html ''
 
     render: ( location ) ->

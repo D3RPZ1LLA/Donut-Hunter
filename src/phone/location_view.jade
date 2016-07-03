@@ -1,11 +1,12 @@
-img.preview( src!="<%= photo %>" )
+img.preview( src!="<%= model.get( 'image_url' ) %>" )
 .text-information
-  .title <%= attributes.name %>
+  .title <%= model.get( 'name' ) %>
   .reviews
     include stars
-    .review-text <%= attributes.reviews.length %> Reviews
-  .address <%= attributes.vicinity %>
+    .review-text <%= model.get( 'review_count' ) %> Reviews
+  .address
+    | <%= model.get( 'location' ).address.join( ' ' ) %>
+    br
+    | <%= model.get( 'location' ).city %> <%= model.get( 'location' ).state_code %> <%= model.get( 'location' ).postal_code %>
 
 .distance-and-price
-  .distance 1.1 mi
-  .price $$

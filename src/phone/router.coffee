@@ -6,6 +6,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
       console.warn( err )
 
     initialize:  ->
+      dat = @
       @setMapDimensions( )
       @geocoder = new google.maps.Geocoder( )
 
@@ -14,7 +15,11 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
       @header.on 'search', @geocodeFromAddress, @
       @header.on 'setResultsDisplay', @setDisplay, @
 
-      @locationList = new LocationList { el: $( '.location-list' ) }
+      @locations = new Backbone.Collection
+      @locationList = new LocationList { el: $( '.location-list' ), collection: @locations }
+      @locations.on 'add', ( place ) ->
+        dat.createMarker place
+
       @locationList.on 'error', @error
 
       if !!navigator.geolocation
@@ -23,17 +28,16 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
         console.warn 'geolocation IS NOT available'
 
     initMap: ( position ) ->
-      @createMapAndStartSearch {
+      @center = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       }
+      @createMapAndStartSearch( )
 
-    createMapAndStartSearch: ( center, radius ) ->
-      @center = center
-      radius ||= 5000
+    createMapAndStartSearch: ->
       @createMap( )
       @createCurrentLocationMarker( )
-      @searchDonutsByRadius radius, @buildMapMarkersAndList
+      @searchDonuts( )
 
     geocodeFromAddress: ( address ) ->
       dat = @
@@ -43,22 +47,11 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng()
           }
-          dat.createMapAndStartSearch( center )
+          dat.center = center
+          dat.createMapAndStartSearch( )
 
-    buildMapMarkersAndList: ( results, status ) ->
+    buildMapMarkersAndList: ( results ) ->
       dat = @
-
-      if status == google.maps.places.PlacesServiceStatus.OK
-        service = new google.maps.places.PlacesService @map
-        @locationList.reset( )
-
-        for i in [ 0...results.length ]
-          service.getDetails {
-            placeId: results[ i ].place_id
-          }, ( place, status ) ->
-              if status == google.maps.places.PlacesServiceStatus.OK
-                dat.createMarker place
-                dat.createListItem place
 
     setMapDimensions: ->
       headerHeight = $( 'header' ).outerHeight( )
@@ -115,28 +108,36 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
         dat.infowindow.setContent "You are here !"
         dat.infowindow.open dat.map, @
 
-    searchDonutsByRadius: ( radius, callback ) ->
-      service = new google.maps.places.PlacesService( @map )
-
-      service.nearbySearch {
-        key: @Google_API_KEY,
-        location: @center,
-        radius: radius,
-        keyword: [ 'donuts' ]
-      }, callback.bind( @ )
+    searchDonuts: ->
+      console.log @center.lat + ',' + @center.lng
+      query = {
+        ll: @center.lat + ',' + @center.lng
+        category_filter: 'donuts'
+      }
+      dat = @
+      $.ajax {
+        url: '/search'
+        data: query
+        dataType: 'json'
+        success: ( results ) ->
+          dat.locations.reset( )
+          dat.locations.add results
+        error: ( e ) ->
+          console.error e
+      }
 
     createMarker: ( place ) ->
       dat = @
-      placeLoc = place.geometry.location
+      placeLoc = place.get( 'location' ).coordinate
       marker = new google.maps.Marker {
         map: @map,
-        position: place.geometry.location,
+        position: {
+          lat: placeLoc.latitude,
+          lng: placeLoc.longitude
+        }
         icon: '/images/donut_icon.png'
       }
 
       google.maps.event.addListener marker, 'click', ->
         dat.infowindow.setContent _.template( InfoWindowTemplate )( place: place )
         dat.infowindow.open dat.map, @
-
-    createListItem: ( place ) ->
-      @locationList.addLocation place
