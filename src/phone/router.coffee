@@ -107,6 +107,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
       google.maps.event.addListener marker, 'click', ->
         dat.infowindow.setContent "You are here !"
         dat.infowindow.open dat.map, @
+        dat.deleteDefaultMarkerUI( )
 
     searchDonuts: ->
       dat = @
@@ -122,6 +123,15 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
         error: ( e ) ->
           console.error e
 
+    deleteDefaultMarkerUI: ->
+      iwOuter = $('.gm-style-iw')
+      iwBackground = iwOuter.prev()
+      iwBackground.children(':nth-child(2)').css( {'display' : 'none'} )
+      iwBackground.children(':nth-child(4)').css( {'display' : 'none'} )
+      iwBackground.children(':nth-child(3)').find('div').children().css( {
+      'display': 'none'
+      } )
+
     createMarker: ( place ) ->
       dat = @
       placeLoc = place.get( 'location' ).coordinate
@@ -135,5 +145,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
       }
 
       google.maps.event.addListener marker, 'click', ->
-        dat.infowindow.setContent _.template( InfoWindowTemplate )( place: place )
+        dat.infowindow.setContent _.template( InfoWindowTemplate )( model: place )
         dat.infowindow.open dat.map, @
+        dat.deleteDefaultMarkerUI( )
+

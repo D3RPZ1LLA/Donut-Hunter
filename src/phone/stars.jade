@@ -1,12 +1,12 @@
-<% if ( rating < 0.5 ) { %>
+<% if ( model.get( 'rating' ) < 0.5 ) { %>
 include 0-star
-<% } else if ( rating < 1.5 ) { %>
+<% } else if ( model.get( 'rating' ) < 1.5 ) { %>
 include 1-star
-<% } else if ( rating <  2.5 ) { %>
+<% } else if ( model.get( 'rating' ) <  2.5 ) { %>
 include 2-star
-<% } else if ( rating < 3.5 ) { %>
+<% } else if ( model.get( 'rating' ) < 3.5 ) { %>
 include 3-star
-<% } else if ( rating < 4.5 ) { %>
+<% } else if ( model.get( 'rating' ) < 4.5 ) { %>
 include 4-star
 <% } else { %>
 include 5-star

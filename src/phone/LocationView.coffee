@@ -3,5 +3,5 @@ define [ 'text!location_view.html', 'backbone' ], ( template ) ->
     className: 'donut-location'
 
     render: ->
-      @$el.html _.template( template )( model: @model, rating: @model.get( 'rating' ) )
+      @$el.html _.template( template )( model: @model )
       @

@@ -1,6 +1,5 @@
-.map-popup
-  .row
-    .title <%= place.get( 'name' ) %>
-  .row
-    .review-count <%= place.get( 'review_count' ) %> Reviews
-
+.text-information
+  .title <%= model.get( 'name' ) %>
+  .reviews
+    include stars
+    .review-text <%= model.get( 'review_count' ) %> Reviews
