@@ -109,22 +109,18 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
         dat.infowindow.open dat.map, @
 
     searchDonuts: ->
-      console.log @center.lat + ',' + @center.lng
-      query = {
-        ll: @center.lat + ',' + @center.lng
-        category_filter: 'donuts'
-      }
       dat = @
-      $.ajax {
+      $.ajax
         url: '/search'
-        data: query
+        data:
+          ll: @center.lat + ',' + @center.lng
+          category_filter: 'donuts'
         dataType: 'json'
         success: ( results ) ->
           dat.locations.reset( )
           dat.locations.add results
         error: ( e ) ->
           console.error e
-      }
 
     createMarker: ( place ) ->
       dat = @

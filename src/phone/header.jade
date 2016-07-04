@@ -13,9 +13,15 @@ header.header-view
       div
       div
   .flex-container
-    .tagline Let's hunt some donuts!
+    .tagline Let's hunt
+      span.large-only  some donuts
+      | !
     .mobile-bar
       .mobile-controls
         .map Map
         .hr
         .list.selected List
+
+  a( href="https://www.yelp.com" ).yelp-branding
+    span Powered by
+    img.yelp-logo( src="/images/yelp-logo.png")
