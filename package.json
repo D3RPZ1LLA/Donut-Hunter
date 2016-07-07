@@ -28,5 +28,9 @@
   },
   "engines": {
     "node": "0.10.x"
-  }
+  },
+  "scripts": {
+    "postinstall": "node_modules/grunt-cli/bin/grunt build",
+    "start": "node app.js"
+  },
 }
