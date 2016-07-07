@@ -1,24 +1,31 @@
 .gm-style-iw
-  padding: 10px;
+  padding: 7px 7px 3px 7px
   background-color: $brown !important
   color: $white !important
-  margin: 1px;
-  top: 28px !important;
-  left: 0 !important;
-  border-radius: 2px 2px 0 0;
-  box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
-  border: 3px solid $green;
-  border-radius: 2px 2px 0 0;
+  margin: 1px
+  top: 25px !important
+  left: 0 !important
+  border-radius: 0 !important
+  overflow: visible !important
+  box-shadow: 0
+  border: 3px solid $green
+  border-radius: 2px 2px 0 0
+  width: auto !important
 
   .title
     font-family: $Oswald
     font-size: 17px
+    padding-bottom: 3px
     color: $white
     letter-spacing: 1.3px
     font-weight: 400
+    max-width: 155px
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+
   .reviews
     position: relative
-    height: 25px
     padding-left: 88px
     overflow: hidden
     margin-bottom: 1px
@@ -31,10 +38,36 @@
       left: -10px
     .review-text
       font-size: 13px
-      line-height: 23px
+      line-height: 32px
       color: $pink
       font-family: $Josefin
+      white-space: nowrap
   .address
+    margin-top: -5px
     font-size: 13px
     color: $green
     font-family: $Josefin
+    max-width: 155px
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+
+.down-arrow
+  position: absolute
+  bottom: -20px
+  left: 85px
+  width: 0
+  height: 0
+  border-left: 15px solid transparent
+  border-right: 15px solid transparent
+  border-top: 20px solid $green
+
+  &.green
+    border-top: 18px solid $green
+  &.brown
+    border-top: 18px solid $brown
+    bottom: -15px
+    z-index: 2
+
+.default-close-button
+  display: none

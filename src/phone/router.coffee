@@ -131,6 +131,8 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
       iwBackground.children(':nth-child(3)').find('div').children().css( {
       'display': 'none'
       } )
+      iwCloseBtn = iwOuter.next()
+      $(iwCloseBtn).addClass 'default-close-button'
 
     createMarker: ( place ) ->
       dat = @
