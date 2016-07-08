@@ -7,6 +7,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
 
     initialize:  ->
       dat = @
+      @center = { }
       @setMapDimensions( )
       @geocoder = new google.maps.Geocoder( )
 
@@ -16,7 +17,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
       @header.on 'setResultsDisplay', @setDisplay, @
 
       @locations = new Backbone.Collection
-      @locationList = new LocationList { el: $( '.location-list' ), collection: @locations }
+      @locationList = new LocationList { el: $( '.location-list' ), collection: @locations, center: @center }
       @locations.on 'add', ( place ) ->
         dat.createMarker place
 
@@ -28,10 +29,8 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
         console.warn 'geolocation IS NOT available'
 
     initMap: ( position ) ->
-      @center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      }
+      @center.lat = position.coords.latitude
+      @center.lng = position.coords.longitude
       @createMapAndStartSearch( )
 
     createMapAndStartSearch: ->

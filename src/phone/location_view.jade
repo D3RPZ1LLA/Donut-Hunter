@@ -10,3 +10,5 @@ img.preview( src!="<%= model.get( 'image_url' ) %>" )
     | <%= model.get( 'location' ).city %> <%= model.get( 'location' ).state_code %> <%= model.get( 'location' ).postal_code %>
 
 .distance-and-price
+  a( href!="https://maps.google.com?saddr=<%= center.lat %>,<%= center.lng %>&daddr=<%= model.get( 'location').coordinate.latitude %>,<%= model.get( 'location').coordinate.longitude %>") derp
+    //- 40.765819,-73.975866

@@ -1,8 +1,10 @@
 define [ 'LocationView', 'backbone' ], ( LocationView ) ->
   Backbone.View.extend
 
-    initialize: ->
+    initialize: ( options ) ->
       dat = @
+      @center = options.center
+
       @collection.on 'add', ( location ) ->
         dat.render( location )
       @collection.on 'reset', ->
@@ -12,5 +14,5 @@ define [ 'LocationView', 'backbone' ], ( LocationView ) ->
       @$el.html ''
 
     render: ( location ) ->
-      locationView = new LocationView { model: location }
+      locationView = new LocationView { model: location, center: @center }
       @$el.append locationView.render( ).$el
