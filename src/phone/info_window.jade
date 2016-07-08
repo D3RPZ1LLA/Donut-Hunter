@@ -1,14 +1,9 @@
-.flex-container
-  .left
-    .title <%= model.get( 'name' ) %>
-    .reviews
-      include stars
-      .review-text <%= model.get( 'review_count' ) %> Reviews
-    .address
-        | <%= model.get( 'location' ).address.join( ' ' ) %>
-  .right
-    a( href="geo:124.028582,-29.201930", traget="_blank") test map link
-
+.title <%= model.get( 'name' ) %>
+.reviews
+  include stars
+  .review-text <%= model.get( 'review_count' ) %> Reviews
+.address
+    | <%= model.get( 'location' ).address.join( ' ' ) %>
 
 .down-arrow.brown
 .down-arrow.green
