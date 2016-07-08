@@ -5,10 +5,9 @@ header.header-view
       | NUT
       br
       | HUNTER
-    form.location-input
+    form( method="get", action="/search" ).location-input
       img.search-icon( src="/images/search.png")
-      input( type="text", placeholder="My Location" )
-      input( type="submit", style="display: none;")
+      input( type="search", placeholder="My Location" )
     .menu-icon
       div
       div

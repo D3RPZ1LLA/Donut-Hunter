@@ -8,8 +8,6 @@ define [ 'backbone' ], ->
       e.preventDefault( )
       @trigger 'search', @$el.find( 'input' ).val()
 
-    toggleMenu: ->
-
     triggerResultsDisplay: ( e ) ->
       $target = $( e.target )
       if !!$target.closest( '.map' )[0]
