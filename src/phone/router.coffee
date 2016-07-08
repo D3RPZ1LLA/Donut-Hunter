@@ -41,6 +41,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
     geocodeFromAddress: ( address ) ->
       dat = @
       @geocoder.geocode { address: address }, ( results, status ) ->
+        alert status
         if status == google.maps.GeocoderStatus.OK
           center = {
             lat: results[0].geometry.location.lat(),
