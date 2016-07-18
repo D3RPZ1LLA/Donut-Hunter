@@ -10,6 +10,6 @@ a.yelp-information( href!="<%= model.get( 'url' ) %>", target="_blank")
       br
       | <%= model.get( 'location' ).city %> <%= model.get( 'location' ).state_code %> <%= model.get( 'location' ).postal_code %>
 
-a.directions( href!="https://maps.google.com?saddr=<%= center.lat %>,<%= center.lng %>&daddr=<%= model.get( 'location').coordinate.latitude %>,<%= model.get( 'location').coordinate.longitude %>")
+a.directions( href!="https://maps.google.com?saddr=<%= center.lat %>,<%= center.lng %>&daddr=<%= model.get( 'location').coordinate.latitude %>,<%= model.get( 'location').coordinate.longitude %>", target="_blank")
   include directions_icon
   span Directions
