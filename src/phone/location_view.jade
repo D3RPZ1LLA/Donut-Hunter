@@ -1,14 +1,15 @@
-img.preview( src!="<%= model.get( 'image_url' ) %>" )
-.text-information
-  .title <%= model.get( 'name' ) %>
-  .reviews
-    include stars
-    .review-text <%= model.get( 'review_count' ) %> Reviews
-  .address
-    | <%= model.get( 'location' ).address.join( ' ' ) %>
-    br
-    | <%= model.get( 'location' ).city %> <%= model.get( 'location' ).state_code %> <%= model.get( 'location' ).postal_code %>
+a.yelp-information( href!="<%= model.get( 'url' ) %>", target="_blank")
+  img.preview( src!="<%= model.get( 'image_url' ) %>" )
+  .text-information
+    .title <%= model.get( 'name' ) %>
+    .reviews
+      include stars
+      .review-text <%= model.get( 'review_count' ) %> Reviews
+    .address
+      | <%= model.get( 'location' ).address.join( ' ' ) %>
+      br
+      | <%= model.get( 'location' ).city %> <%= model.get( 'location' ).state_code %> <%= model.get( 'location' ).postal_code %>
 
-.distance-and-price
-  a( href!="https://maps.google.com?saddr=<%= center.lat %>,<%= center.lng %>&daddr=<%= model.get( 'location').coordinate.latitude %>,<%= model.get( 'location').coordinate.longitude %>") derp
-    //- 40.765819,-73.975866
+a.directions( href!="https://maps.google.com?saddr=<%= center.lat %>,<%= center.lng %>&daddr=<%= model.get( 'location').coordinate.latitude %>,<%= model.get( 'location').coordinate.longitude %>")
+  include directions_icon
+  span Directions

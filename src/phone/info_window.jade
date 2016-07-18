@@ -1,9 +1,10 @@
-.title <%= model.get( 'name' ) %>
-.reviews
-  include stars
-  .review-text <%= model.get( 'review_count' ) %> Reviews
-.address
-    | <%= model.get( 'location' ).address.join( ' ' ) %>
+a( href!="<%= model.get( 'url' ) %>", target="_blank")
+  .title <%= model.get( 'name' ) %>
+  .reviews
+    include stars
+    .review-text <%= model.get( 'review_count' ) %> Reviews
+  .address
+      | <%= model.get( 'location' ).address.join( ' ' ) %>
 
 .down-arrow.brown
 .down-arrow.green

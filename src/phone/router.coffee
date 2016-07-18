@@ -146,6 +146,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
       }
 
       google.maps.event.addListener marker, 'click', ->
+        console.log place
         dat.infowindow.setContent _.template( InfoWindowTemplate )( model: place )
         dat.infowindow.open dat.map, @
         dat.deleteDefaultMarkerUI( )
