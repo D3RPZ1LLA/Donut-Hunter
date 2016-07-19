@@ -1,4 +1,4 @@
-define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], ( Header, LocationList, InfoWindowTemplate ) ->
+define ['HeaderView', 'LocationListView', 'text!info_window.html', 'text!you_are_here.html', 'backbone'], ( Header, LocationList, InfoWindowTemplate, YouAreHereTemplate ) ->
   Backbone.Router.extend
     Google_API_KEY: 'AIzaSyB0cV8zMYlRl3W9mNrsdsjqR5B6uMEdpbg'
 
@@ -104,7 +104,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
 
       dat = @
       google.maps.event.addListener marker, 'click', ->
-        dat.infowindow.setContent "You are here !"
+        dat.infowindow.setContent _.template( YouAreHereTemplate )( )
         dat.infowindow.open dat.map, @
         dat.deleteDefaultMarkerUI( )
 
@@ -147,7 +147,7 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'backbone'], 
 
       google.maps.event.addListener marker, 'click', ->
         console.log place
-        dat.infowindow.setContent _.template( InfoWindowTemplate )( model: place )
+        dat.infowindow.setContent _.template( InfoWindowTemplate )( model: place, center: dat.center )
         dat.infowindow.open dat.map, @
         dat.deleteDefaultMarkerUI( )
 

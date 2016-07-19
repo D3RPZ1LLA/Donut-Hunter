@@ -1,5 +1,5 @@
 .gm-style-iw
-  padding: 7px 7px 3px 7px
+  padding: 6px 6px 2px 6px
   background-color: $brown !important
   color: $white !important
   margin: 1px
@@ -15,6 +15,13 @@
   a
     text-decoration: none
 
+  .info-window
+    clearfix()
+    width: 171px
+
+  .yelp-information
+    float: left
+
   .title
     font-family: $Oswald
     font-size: 17px
@@ -22,7 +29,7 @@
     color: $white
     letter-spacing: 1.3px
     font-weight: 400
-    max-width: 155px
+    max-width: 115px
     white-space: nowrap
     text-overflow: ellipsis
     overflow: hidden
@@ -33,6 +40,7 @@
     padding-left: 88px
     overflow: hidden
     margin-bottom: 1px
+    height: 32px
     .stars
       fill: $pink
       width: 100px
@@ -51,15 +59,48 @@
     font-size: 13px
     color: $green
     font-family: $Josefin
-    max-width: 155px
+    max-width: 115px
     white-space: nowrap
     text-overflow: ellipsis
     overflow: hidden
 
+  .directions
+    position: relative
+    border-radius: 5px
+    width: 60px
+    height: 60px
+    margin-right: -3px
+    margin-left: -10px
+    text-decoration: none
+    display: block
+    float: right
+
+    svg
+      width: 59px
+      height: 59px
+      position: absolute
+      right: 0px
+      top: -4px
+
+      path
+        fill: $white
+        &:last-child
+          fill: $pink
+
+  span
+    display: block
+    position: relative
+    top: 46px
+    right: 0
+    color: $white
+    text-decoration: none
+    font-family: $Oswald
+    text-align: center
+
 .down-arrow
   position: absolute
-  bottom: -20px
-  left: 85px
+  bottom: -18px
+  left: 99px
   width: 0
   height: 0
   border-left: 15px solid transparent
@@ -70,8 +111,11 @@
     border-top: 18px solid $green
   &.brown
     border-top: 18px solid $brown
-    bottom: -15px
+    bottom: -13px
     z-index: 2
 
 .default-close-button
   display: none
+
+.you-are-here .down-arrow
+  left: 58px
