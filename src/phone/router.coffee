@@ -91,7 +91,8 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'text!you_are
       dat = @
       @map = new google.maps.Map document.getElementById('map-canvas'), {
         center: @center,
-        zoom: 13
+        zoom: 13,
+        disableDefaultUI: true
       }
       @infowindow = new google.maps.InfoWindow( )
 
