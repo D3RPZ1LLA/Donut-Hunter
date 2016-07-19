@@ -1,4 +1,4 @@
-define ['HeaderView', 'LocationListView', 'text!info_window.html', 'text!you_are_here.html', 'backbone'], ( Header, LocationList, InfoWindowTemplate, YouAreHereTemplate ) ->
+define ['HeaderView', 'menu', 'LocationListView', 'text!info_window.html', 'text!you_are_here.html', 'backbone'], ( Header, Menu, LocationList, InfoWindowTemplate, YouAreHereTemplate ) ->
   Backbone.Router.extend
     Google_API_KEY: 'AIzaSyB0cV8zMYlRl3W9mNrsdsjqR5B6uMEdpbg'
 
@@ -12,9 +12,14 @@ define ['HeaderView', 'LocationListView', 'text!info_window.html', 'text!you_are
       @geocoder = new google.maps.Geocoder( )
 
       @header = new Header { el: $( '.header-view' ) }
+      @menu = new Menu { el: $('.menu') }
+
       @header.on 'error', @error
       @header.on 'search', @geocodeFromAddress, @
       @header.on 'setResultsDisplay', @setDisplay, @
+      @header.on 'openMenu', ->
+        dat.menu.open( )
+
 
       @locations = new Backbone.Collection
       @locationList = new LocationList { el: $( '.location-list' ), collection: @locations, center: @center }

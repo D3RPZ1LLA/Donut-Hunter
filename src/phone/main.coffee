@@ -18,15 +18,3 @@ require.config
 define ['router', 'backbone'], ( Router ) ->
   new Router( )
   Backbone.history.start()
-  # $.ajax {
-  #   url: '/search'
-  #   data: {
-  #     location: 'San Diego, CA'
-  #     category_filter: 'donuts'
-  #   }
-  #   dataType: 'json'
-  #   success: ( resp ) ->
-  #     console.log resp
-  #   error: ( e ) ->
-  #     console.error e
-  # }

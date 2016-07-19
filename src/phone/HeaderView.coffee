@@ -3,6 +3,7 @@ define [ 'backbone' ], ->
     events:
       'submit form': 'searchDonutsByLocation'
       'click .mobile-controls': 'triggerResultsDisplay'
+      'click .menu-icon': 'openMenu'
 
     searchDonutsByLocation: ( e ) ->
       e.preventDefault( )
@@ -27,3 +28,6 @@ define [ 'backbone' ], ->
         @menuList.removeClass 'selected'
       else
         @trigger 'error', 'HeaderView.setResultsDisplay can only be called with map & list'
+
+    openMenu: ->
+      @trigger 'openMenu'
