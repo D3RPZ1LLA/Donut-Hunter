@@ -1,5 +1,12 @@
 define [ 'backbone' ], ->
   Backbone.View.extend
+    inititialize: ->
+      dat = @
+      window.addEventListener( 'message', ( event ) ->
+        if event.data == 'showList'
+          dat.setDisplay( 'list' )
+      , false )
+
     events:
       'submit form': 'searchDonutsByLocation'
       'click .mobile-controls': 'triggerResultsDisplay'
