@@ -1,11 +1,15 @@
 define [ 'backbone' ], ->
   Backbone.View.extend
-    inititialize: ->
+    initialize: ->
       dat = @
-      window.addEventListener( 'message', ( event ) ->
-        if event.data == 'showList'
-          dat.setDisplay( 'list' )
-      , false )
+      postMessageHandler = ( event ) ->
+        if event.data == 'show_list'
+          dat.trigger 'setResultsDisplay', 'list'
+
+      if !!window.addEventListener
+        window.addEventListener("message", postMessageHandler, false)
+      else
+        window.attachEvent("onmessage", postMessageHandler)
 
     events:
       'submit form': 'searchDonutsByLocation'
