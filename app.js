@@ -28,6 +28,10 @@ app.get('/', function (req, res) {
   res.sendfile('dist/' + 'phone' + '/index.html');
 });
 
+app.get('/mobile-demo', function (req, res) {
+  res.sendfile( 'dist/' + 'phone' + '/mobile_demo.html');
+});
+
 app.get('/search', function (req, res) {
   yelpClient.search( req.query ).then(function (data) {
     var businesses = data.businesses;

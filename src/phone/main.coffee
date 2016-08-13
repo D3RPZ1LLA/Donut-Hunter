@@ -16,5 +16,8 @@ require.config
       exports: '$'
 
 define ['router', 'backbone'], ( Router ) ->
-  new Router( )
-  Backbone.history.start()
+  if window.location.hostname != "localhost" && !window.location.href.match(/https/)
+    window.location = 'https://donut-hunter.herokuapp.com' + window.location.pathname
+  else
+    new Router( )
+    Backbone.history.start()
