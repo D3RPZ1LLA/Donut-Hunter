@@ -35,10 +35,12 @@ body
 @import "info_window"
 
 #map-canvas
-  display: none
+  position: fixed
+  top: 0
+  left: -100%
   width: 100%
   height: 400px
   margin: 0 auto
 
   &.active
-    display: block
+    left: 0%
