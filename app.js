@@ -25,11 +25,11 @@ server.listen(port);
 console.log('\nϟϟϟ Serving on port ' + port + ' ϟϟϟ\n');
 
 app.get('/', function (req, res) {
-  res.sendfile('dist/' + 'phone' + '/index.html');
+  res.sendfile('dist/index.html');
 });
 
 app.get('/mobile-demo', function (req, res) {
-  res.sendfile( 'dist/' + 'phone' + '/mobile_demo.html');
+  res.sendfile( 'dist/mobile_demo.html');
 });
 
 app.get('/search', function (req, res) {

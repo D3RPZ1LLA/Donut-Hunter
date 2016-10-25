@@ -24,7 +24,9 @@
     "underscore": "~1.6.0",
     "backbone": "~1.1.2",
 
-    "node-yelp": "0.0.3"
+    "node-yelp": "0.0.3",
+
+    "mocha": "~3.1.2"
   },
   "engines": {
     "node": "0.10.x"
