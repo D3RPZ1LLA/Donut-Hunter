@@ -1,4 +1,4 @@
-define ['views/Header/view', 'views/Menu/view', 'views/LocationList/view', 'text!views/InfoWindow/template.html', 'text!views/InfoWindow/you_are_here.html', 'backbone'], ( Header, Menu, LocationList, InfoWindowTemplate, YouAreHereTemplate ) ->
+define ['scripts/api_methods', 'views/Header/view', 'views/Menu/view', 'views/LocationList/view', 'text!views/InfoWindow/template.html', 'text!views/InfoWindow/you_are_here.html', 'backbone'], ( APIMethods, Header, Menu, LocationList, InfoWindowTemplate, YouAreHereTemplate ) ->
   Backbone.Router.extend
     Google_API_KEY: 'AIzaSyB0cV8zMYlRl3W9mNrsdsjqR5B6uMEdpbg'
 
@@ -10,49 +10,45 @@ define ['views/Header/view', 'views/Menu/view', 'views/LocationList/view', 'text
       @center = { }
       @setMapDimensions( )
       @geocoder = new google.maps.Geocoder( )
-
       @header = new Header { el: $( '.header-view' ) }
       @menu = new Menu { el: $('.menu') }
-
-      @header.on 'error', @error
-      @header.on 'search', @geocodeFromAddress, @
-      @header.on 'setResultsDisplay', @setDisplay, @
-      @header.on 'openMenu', ->
-        dat.menu.open( )
-
-
       @locations = new Backbone.Collection
       @locationList = new LocationList { el: $( '.location-list' ), collection: @locations, center: @center }
+
       @locations.on 'add', ( place ) ->
         dat.createMarker place
-
       @locationList.on 'error', @error
 
-      if !!navigator.geolocation
-        @getCurrentLocation @initMap, @error
-      else
-        console.warn 'geolocation IS NOT available'
-
-    initMap: ( position ) ->
-      @center.lat = position.coords.latitude
-      @center.lng = position.coords.longitude
-      @createMapAndStartSearch( )
-
-    createMapAndStartSearch: ->
-      @createMap( )
-      @createCurrentLocationMarker( )
-      @searchDonuts( )
-
-    geocodeFromAddress: ( address ) ->
-      dat = @
-      @geocoder.geocode { address: address }, ( results, status ) ->
-        if status == google.maps.GeocoderStatus.OK
+      @header.on 'error', @error
+      @header.on 'search', (address) ->
+        APIMethods.geocodeFromAddress( @geocoder, address, ( results ) ->
           center = {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng()
           }
-          dat.center = center
-          dat.createMapAndStartSearch( )
+          dat.createMapAndStartSearch( center )
+        )
+      , @
+      @header.on 'setResultsDisplay', @setDisplay, @
+      @header.on 'openMenu', ->
+        dat.menu.open( )
+
+      if !!navigator.geolocation
+        APIMethods.getCurrentLocation ( position ) ->
+          center = {
+            lat: position.coords.latitude
+            lng: position.coords.longitude
+          }
+          dat.createMapAndStartSearch( center )
+        , @error
+      else
+        console.warn 'geolocation IS NOT available'
+
+    createMapAndStartSearch: ( center ) ->
+      @center = center
+      @createMap( )
+      @createCurrentLocationMarker( )
+      @searchDonuts( )
 
     buildMapMarkersAndList: ( results ) ->
       dat = @
@@ -83,14 +79,6 @@ define ['views/Header/view', 'views/Menu/view', 'views/LocationList/view', 'text
       $('#map-canvas').removeClass 'active'
       $('.location-list').addClass 'active'
       @header.setDisplay 'list'
-
-
-    getCurrentLocation: ( callback, error ) ->
-      options = {
-        enableHighAccuracy: true,
-        maximumAge: 0
-      }
-      navigator.geolocation.getCurrentPosition( callback.bind(@), error.bind(@), options)
 
     createMap: ->
       dat = @

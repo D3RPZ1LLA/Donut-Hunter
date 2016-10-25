@@ -1,5 +1,13 @@
 define [], ->
   {
+
+    getCurrentLocation: ( callback, error ) ->
+      options = {
+        enableHighAccuracy: true,
+        maximumAge: 0
+      }
+      navigator.geolocation.getCurrentPosition( callback.bind(@), error.bind(@), options)
+
     searchDonuts: ->
       dat = @
       $.ajax
@@ -14,13 +22,8 @@ define [], ->
         error: ( e ) ->
           console.error e
 
-    geocodeFromAddress: ( geocoder, callback ) ->
-      geocoder.geocode { }, ( results, status ) ->
+    geocodeFromAddress: ( geocoder, address, callback ) ->
+      geocoder.geocode { address: address }, ( results, status ) ->
         if status == google.maps.GeocoderStatus.OK
-          center = {
-            lat: results[0].geometry.location.lat(),
-            lng: results[0].geometry.location.lng()
-          }
-          dat.center = center
           callback( results )
   }
