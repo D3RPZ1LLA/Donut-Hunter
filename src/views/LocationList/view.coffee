@@ -1,4 +1,4 @@
-define [ 'LocationView', 'backbone' ], ( LocationView ) ->
+define [ 'views/Location/view', 'backbone' ], ( LocationView ) ->
   Backbone.View.extend
 
     initialize: ( options ) ->

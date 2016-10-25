@@ -2,13 +2,13 @@
   a.yelp-information( href!="<%= model.get( 'url' ) %>", target="_blank")
     .title <%= model.get( 'name' ) %>
     .reviews
-      include stars
+      include ../../icons/stars
       .review-text <%= model.get( 'review_count' ) %>
     .address
         | <%= model.get( 'location' ).address.join( ' ' ) %>
 
   a.directions( href!="https://maps.google.com?saddr=<%= center.lat %>,<%= center.lng %>&daddr=<%= model.get( 'location').coordinate.latitude %>,<%= model.get( 'location').coordinate.longitude %>", target="_blank")
-    include directions_icon
+    include ../../icons/directions_icon
     span Directions
 
 

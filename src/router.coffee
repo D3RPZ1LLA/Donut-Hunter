@@ -1,4 +1,4 @@
-define ['HeaderView', 'menu', 'LocationListView', 'text!info_window.html', 'text!you_are_here.html', 'backbone'], ( Header, Menu, LocationList, InfoWindowTemplate, YouAreHereTemplate ) ->
+define ['views/Header/view', 'views/Menu/view', 'views/LocationList/view', 'text!views/InfoWindow/template.html', 'text!views/InfoWindow/you_are_here.html', 'backbone'], ( Header, Menu, LocationList, InfoWindowTemplate, YouAreHereTemplate ) ->
   Backbone.Router.extend
     Google_API_KEY: 'AIzaSyB0cV8zMYlRl3W9mNrsdsjqR5B6uMEdpbg'
 

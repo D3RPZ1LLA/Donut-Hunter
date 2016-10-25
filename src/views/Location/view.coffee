@@ -1,4 +1,4 @@
-define [ 'text!location_view.html', 'backbone' ], ( template ) ->
+define [ 'text!views/Location/template.html', 'backbone' ], ( template ) ->
   Backbone.View.extend
     className: 'donut-location'
 
