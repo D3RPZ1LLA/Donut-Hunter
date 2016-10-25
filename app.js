@@ -35,7 +35,7 @@ app.get('/mobile-demo', function (req, res) {
 app.get('/search', function (req, res) {
   yelpClient.search( req.query ).then(function (data) {
     var businesses = data.businesses;
-    res.send(  data.businesses );
+    res.send( data.businesses );
   });
 });
 

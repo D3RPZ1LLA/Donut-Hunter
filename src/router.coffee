@@ -152,7 +152,6 @@ define ['views/Header/view', 'views/Menu/view', 'views/LocationList/view', 'text
       }
 
       google.maps.event.addListener marker, 'click', ->
-        console.log place
         dat.infowindow.setContent _.template( InfoWindowTemplate )( model: place, center: dat.center )
         dat.infowindow.open dat.map, @
         dat.deleteDefaultMarkerUI( )
