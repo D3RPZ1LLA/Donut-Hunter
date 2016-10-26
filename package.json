@@ -33,6 +33,7 @@
   },
   "scripts": {
     "postinstall": "node_modules/grunt-cli/bin/grunt build",
+    "test": "mocha --recursive",
     "start": "node app.js"
   }
 }
